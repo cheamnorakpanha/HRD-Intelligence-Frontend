@@ -6,16 +6,19 @@ Admin/Instructor web app for HRD: students, attendance, scores, allowances, alum
 Frontend only. Backend is a separate Spring Boot API Gateway (REST, JWT from Keycloak).
 
 ## Stack
+
 Next.js (App Router) · TypeScript strict · Tailwind · shadcn/ui (Base UI, Nova) · TanStack Query + Table
 · react-hook-form + zod · Recharts · zustand · axios · Keycloak auth · npm only.
 
 ## Commands
+
 - Dev: `npm run dev`
 - Type check: `npx tsc --noEmit` (prefer this over `npm run build` to verify changes)
 - Lint: `npm run lint`
 - Add UI component: `npx shadcn@latest add <name>` (never hand-write files in components/ui)
 
 ## Where things go
+
 - Pages: `src/app/(main)/<page>/page.tsx` — thin, just render feature components
 - Public pages (no login): `src/app/(auth)/*`, `src/app/(public)/*`
 - Feature code: `src/features/<feature>/{components,hooks,services}` + `types.ts`, `schemas.ts`
@@ -26,6 +29,7 @@ Next.js (App Router) · TypeScript strict · Tailwind · shadcn/ui (Base UI, Nov
 - API response shapes: `src/types/api.ts`
 
 ## Rules
+
 - A feature never imports from another feature. Move shared code to `src/components/shared` or `src/types`.
 - Roles: ADMIN, INSTRUCTOR. Admin-only pages are listed in `ADMIN_ONLY_ROUTES`. Hide admin UI with role checks; backend still enforces.
 - Files kebab-case, components PascalCase, hooks `useX`.
@@ -33,6 +37,7 @@ Next.js (App Router) · TypeScript strict · Tailwind · shadcn/ui (Base UI, Nov
 - English only in UI.
 
 ## How to work (keep it short)
+
 - Read only the files needed for the task. Don't scan the whole repo.
 - Never read `node_modules`, `.next`, `package-lock.json`.
 - Edit files in place; don't rewrite whole files for small changes.

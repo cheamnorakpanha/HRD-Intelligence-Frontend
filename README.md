@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HRD Intelligence — Web
 
-## Getting Started
+Web app for HRD Admins and Instructors to manage students, attendance, scores, allowances, alumni, documents, and an AI assistant.
 
-First, run the development server:
+This repo is the **frontend only**. It talks to the Spring Boot API Gateway and uses Keycloak for login.
+
+## Tech stack
+
+- Next.js (App Router) + TypeScript
+- Tailwind CSS + shadcn/ui
+- TanStack Query (server data) + TanStack Table (tables)
+- React Hook Form + Zod (forms)
+- Recharts (charts), Zustand (UI state), Axios (API calls)
+
+## Getting started
+
+**Requirements:** Node.js LTS and npm. Use **npm only** — not pnpm or yarn.
 
 ```bash
+# 1. Clone and enter the project
+git clone <repo-url>
+cd hrd-intelligence-web
+
+# 2. Install exact dependency versions from package-lock.json
+npm ci
+
+# 3. Create your local environment file, then fill in the values
+cp .env.example .env.local      # Windows PowerShell: Copy-Item .env.example .env.local
+
+# 4. Start the dev server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Ask the team lead for the `.env.local` values. Never commit `.env.local`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+| Command                | What it does                            |
+| ---------------------- | --------------------------------------- |
+| `npm run dev`          | Start the dev server                    |
+| `npm run build`        | Production build                        |
+| `npm run start`        | Run the production build                |
+| `npm run lint`         | Check code with ESLint                  |
+| `npm run format`       | Format all files with Prettier          |
+| `npm run format:check` | Check formatting without changing files |
 
-To learn more about Next.js, take a look at the following resources:
+## Project structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/                 Pages (routes)
+│   ├── (auth)/          Login, forgot password — no login required
+│   ├── (public)/        Alumni update form — opened from email
+│   └── (main)/          Everything behind login
+├── features/            One folder per module: components, hooks, services
+├── components/          Shared UI: ui (shadcn), layout, charts, data-table, shared
+├── constants/           ROUTES, ROLES
+├── types/               Shared types (API response shapes)
+├── hooks/               Shared hooks
+├── lib/                 Utilities and API client
+└── stores/              Zustand stores
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Team workflow
 
-## Deploy on Vercel
+1. Pull the latest `develop`.
+2. Create a branch: `feature/<name>` or `fix/<name>`.
+3. Before pushing, run `npm run lint` and `npm run format`.
+4. Open a pull request into `develop`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Read [CONTRIBUTING.md](./CONTRIBUTING.md) for where code goes and naming rules.
